@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Twitter, Youtube, Mail, ArrowRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Instagram, Youtube, Linkedin } from 'lucide-react';
 import { useCMS } from './CMSContext';
 
 export const Contact: React.FC = () => {
@@ -8,110 +9,97 @@ export const Contact: React.FC = () => {
   const { contact, general } = data;
 
   return (
-    <section id="contact" className="py-24 bg-[#0a0a0a] relative overflow-hidden">
-        {/* Background Accent */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-indigo-900/10 to-transparent pointer-events-none"></div>
+    <section id="contact" className="py-16 bg-white">
+      
+      {/* Top Info Bar */}
+      <div className="container mx-auto px-6 mb-16">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-24 text-center">
+            <div className="flex flex-col items-center">
+                <div className="w-12 h-12 rounded-full border border-red-100 flex items-center justify-center text-[#f05a28] mb-3">
+                    <Phone size={20} />
+                </div>
+                <span className="text-gray-600 font-medium">{general.contactPhone}</span>
+            </div>
+            <div className="flex flex-col items-center">
+                <div className="w-12 h-12 rounded-full border border-red-100 flex items-center justify-center text-[#f05a28] mb-3">
+                    <Mail size={20} />
+                </div>
+                <div className="text-gray-600 text-sm">
+                    <div className="font-medium">{general.contactEmail}</div>
+                    <div className="text-xs text-gray-400">copyright@nkmedia.az</div>
+                </div>
+            </div>
+            <div className="flex flex-col items-center">
+                <div className="w-12 h-12 rounded-full border border-red-100 flex items-center justify-center text-[#f05a28] mb-3">
+                    <MapPin size={20} />
+                </div>
+                <div className="text-gray-600 text-sm max-w-xs text-center">
+                    {general.address}
+                </div>
+            </div>
+        </div>
+      </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16">
+      <div className="container mx-auto px-6 mb-24">
+        <div className="flex flex-col lg:flex-row gap-12 items-start justify-center">
           
-          {/* Contact Info */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="lg:w-1/2"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight">
-              {contact.heading} <span className="text-indigo-500">{contact.headingAccent}</span>
-            </h2>
-            <p className="text-gray-400 text-lg mb-12 leading-relaxed max-w-md">
-              {contact.text}
-            </p>
-
-            <div className="space-y-8">
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center text-indigo-500">
-                  <Mail />
-                </div>
-                <div>
-                  <h4 className="text-white font-bold uppercase tracking-wider text-sm">Management</h4>
-                  <a href={`mailto:${general.contactEmail}`} className="text-gray-400 hover:text-white transition-colors">{general.contactEmail}</a>
-                </div>
-              </div>
-
-              <div className="pt-8 border-t border-neutral-800">
-                <h4 className="text-white font-bold uppercase tracking-wider text-sm mb-6">Follow {general.artistName}</h4>
-                <div className="flex gap-6">
-                  {[Instagram, Twitter, Youtube].map((Icon, i) => (
-                    <a key={i} href="#" className="w-12 h-12 border border-neutral-700 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:border-indigo-500 hover:bg-indigo-500/10 transition-all duration-300">
-                      <Icon size={20} />
-                    </a>
-                  ))}
-                </div>
+          {/* Director Profile */}
+          <div className="flex items-start gap-4 lg:w-1/3 justify-center lg:justify-end">
+            <img 
+              src={contact.directorImage} 
+              alt="Director" 
+              className="w-24 h-24 rounded-lg object-cover shadow-lg"
+            />
+            <div>
+              <h4 className="font-bold text-gray-800 text-lg">{contact.directorName}</h4>
+              <p className="text-gray-500 text-sm mb-3">{contact.directorTitle}</p>
+              <p className="text-xs text-gray-400 mb-1">
+                 <Mail size={12} className="inline mr-1" />
+                 {general.contactEmail}
+              </p>
+              <p className="text-xs text-gray-400 mb-3">
+                {general.address}
+              </p>
+              <div className="flex gap-2 text-blue-500">
+                <Facebook size={16} />
+                <Instagram size={16} />
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Form */}
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="lg:w-1/2"
-          >
-            <form className="bg-neutral-900/50 p-8 md:p-10 rounded-2xl border border-neutral-800 backdrop-blur-sm">
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Name</label>
-                    <input 
-                      type="text" 
-                      className="w-full bg-black/50 border border-neutral-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
-                      placeholder="Jane Doe"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Email</label>
-                    <input 
-                      type="email" 
-                      className="w-full bg-black/50 border border-neutral-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
-                      placeholder="jane@example.com"
-                    />
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Subject</label>
-                  <select className="w-full bg-black/50 border border-neutral-700 text-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors">
-                    <option>Booking Inquiry</option>
-                    <option>Press / Media</option>
-                    <option>Collaboration</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Message</label>
-                  <textarea 
-                    rows={4}
-                    className="w-full bg-black/50 border border-neutral-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors resize-none"
-                    placeholder="Tell us about your project..."
-                  ></textarea>
-                </div>
-
-                <button 
-                  type="button"
-                  className="w-full bg-indigo-600 text-white font-bold tracking-widest uppercase py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 flex items-center justify-center gap-2 group"
-                >
-                  Send Message
-                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
+          <div className="lg:w-1/2 bg-gray-50 p-8 rounded-2xl w-full">
+            <h3 className="text-2xl font-bold text-gray-800 mb-2">Bizə yazın</h3>
+            <p className="text-gray-500 text-sm mb-6">Vaxt itirməyin, elə indi bizimlə əlaqə saxlayın.</p>
+            
+            <form className="space-y-4">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <input type="text" placeholder="Adınız*" className="w-full bg-white border border-gray-200 p-3 rounded-lg focus:outline-none focus:border-[#f05a28]" />
+                  <input type="text" placeholder="Soyadınız*" className="w-full bg-white border border-gray-200 p-3 rounded-lg focus:outline-none focus:border-[#f05a28]" />
+               </div>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <input type="email" placeholder="E-poçt*" className="w-full bg-white border border-gray-200 p-3 rounded-lg focus:outline-none focus:border-[#f05a28]" />
+                  <input type="text" placeholder="Telefon*" className="w-full bg-white border border-gray-200 p-3 rounded-lg focus:outline-none focus:border-[#f05a28]" />
+               </div>
+               <textarea rows={4} placeholder="Mesajınız*" className="w-full bg-white border border-gray-200 p-3 rounded-lg focus:outline-none focus:border-[#f05a28]"></textarea>
+               
+               <button className="w-full bg-[#e67e22] text-white font-medium py-3 rounded-lg hover:bg-[#d35400] transition-colors">
+                  Göndər
+               </button>
             </form>
-          </motion.div>
-
+          </div>
         </div>
+      </div>
+
+      {/* Map */}
+      <div className="w-full h-[400px] bg-gray-200 relative">
+         <img src={contact.mapImage} className="w-full h-full object-cover grayscale opacity-60" alt="Map" />
+         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+             <div className="bg-white p-4 rounded-xl shadow-xl flex flex-col items-center">
+                <div className="text-[#f05a28] font-bold">NK Media</div>
+                <div className="text-xs text-gray-500">14 Nizami Street, Baku</div>
+             </div>
+         </div>
       </div>
     </section>
   );

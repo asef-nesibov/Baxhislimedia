@@ -1,11 +1,26 @@
+
 import React from 'react';
 
-export interface Song {
+export interface Service {
   id: number;
   title: string;
-  album: string;
-  duration: string;
-  plays: string;
+  description: string;
+  iconType: string; // 'seo', 'content', 'verify', 'support', 'ads', 'digital'
+}
+
+export interface Partner {
+  id: number;
+  name: string;
+  image: string;
+  stats: string; // e.g. "32M • 455K • 52.6K"
+}
+
+export interface BlogPost {
+  id: number;
+  title: string;
+  date: string;
+  image: string;
+  views: string;
 }
 
 export interface NavItem {
@@ -13,44 +28,45 @@ export interface NavItem {
   href: string;
 }
 
-export interface SocialLink {
-  platform: string;
-  url: string;
-  icon?: React.ReactNode;
-}
-
 export interface SiteData {
   general: {
-    artistName: string;
+    artistName: string; // "NK MEDIA"
     contactEmail: string;
+    contactPhone: string;
+    address: string;
   };
   hero: {
-    subtitle: string;
     title: string;
-    titleAccent: string;
+    subtitle: string;
     backgroundImage: string;
+    buttonText: string;
   };
   about: {
     heading: string;
-    headingAccent: string;
-    bioParagraphs: string[];
+    text: string[];
     image: string;
     stats: { label: string; value: string }[];
   };
-  music: {
+  services: {
     heading: string;
-    headingAccent: string;
-    tracks: Song[];
-    albumArt: string;
+    subtitle: string;
+    items: Service[];
   };
-  gallery: {
+  partners: {
     heading: string;
-    headingAccent: string;
-    images: string[];
+    items: Partner[];
+    brandLogos: string[]; // URLs for Yoola, Believe, etc.
+  };
+  blog: {
+    heading: string;
+    subtitle: string;
+    posts: BlogPost[];
   };
   contact: {
     heading: string;
-    headingAccent: string;
-    text: string;
+    directorName: string;
+    directorTitle: string;
+    directorImage: string;
+    mapImage: string;
   };
 }

@@ -1,67 +1,85 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { SiteData, Song } from '../types';
 
-// Default content used if no saved data is found
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { SiteData } from '../types';
+
 const defaultData: SiteData = {
   general: {
-    artistName: "NOCTURNE",
-    contactEmail: "mgmt@nocturnemusic.com",
+    artistName: "NK MEDIA",
+    contactEmail: "support@nkmedia.az",
+    contactPhone: "(+994) 55 529 19 94",
+    address: "Heydər Əliyev prospekti ev 22 Mənzil 27, AZ 1800 Şirvan, Azərbaycan"
   },
   hero: {
-    subtitle: "New Album Out Now",
-    title: "MIDNIGHT",
-    titleAccent: "ECHOES",
-    backgroundImage: "https://picsum.photos/seed/concert/1920/1080",
+    title: "NK Media - Sizin Partnyorunuz",
+    subtitle: "YouTube kanallarınızın və içeriklərinizin qorunmasını bizə etibar edin",
+    backgroundImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop", // Dark office desk
+    buttonText: "Daha ətraflı"
   },
   about: {
-    heading: "THE ART OF",
-    headingAccent: "DARKNESS",
-    bioParagraphs: [
-      "Born in the shadows of the urban sprawl, Nocturne is more than just a musician—he is an architect of soundscapes. Blending analog synthesizers with cinematic atmospheres, his music explores the delicate balance between chaos and serenity.",
-      "Following his breakout debut in Berlin's underground scene, Nocturne has captivated audiences worldwide with his visceral live performances. His latest album, 'Midnight Echoes,' delves deeper into the human psyche, asking questions that only silence can answer."
+    heading: "Haqqımızda",
+    text: [
+      "NK Media, Azərbaycanda fəaliyyət göstərən və media sahəsində mühüm rol oynayan bir şirkətdir. Şirkət, xüsusilə rəqəmsal və ənənəvi media sahələrindəki geniş təcrübəsi ilə tanınır.",
+      "NK Media-nın fəaliyyət sahələri arasında media planlama, reklam kampaniyaları, brendinq, sosial media idarəçiliyi və PR xidmətləri yer alır.",
+      "Komandamız, sektordakı ən son trendləri izləyərək, yeni imkanlar və innovativ yollar yaradır."
     ],
-    image: "https://picsum.photos/seed/musician/800/1000",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop",
     stats: [
-      { value: "5M+", label: "Streams" },
-      { value: "120+", label: "Shows" },
-      { value: "3", label: "Albums" }
+      { value: "116", label: "Partnyor sayı" },
+      { value: "13,927,238", label: "İzləyici sayı" },
+      { value: "645,844,457", label: "Baxış sayı" },
+      { value: "83,227", label: "Video sayı" }
     ]
   },
-  music: {
-    heading: "LATEST",
-    headingAccent: "RELEASES",
-    albumArt: "https://picsum.photos/seed/albumart/600/600",
-    tracks: [
-      { id: 1, title: "Neon Rainfall", album: "Midnight Echoes", duration: "3:45", plays: "1.2M" },
-      { id: 2, title: "Digital Ghosts", album: "Midnight Echoes", duration: "4:12", plays: "890K" },
-      { id: 3, title: "Silence in Tokyo", album: "Midnight Echoes", duration: "3:58", plays: "2.5M" },
-      { id: 4, title: "Velvet Void", album: "Previous Life", duration: "4:30", plays: "560K" },
-      { id: 5, title: "Analog Heart", album: "Previous Life", duration: "3:22", plays: "1.8M" },
+  services: {
+    heading: "Xidmətlərimiz",
+    subtitle: "Təklif etdiyimiz xidmətlərlə tanış olun",
+    items: [
+      { id: 1, title: "YouTube SEO Xidməti", description: "YouTube kanallarınızın daha böyük kütləyə çatması üçün SEO optimizasiyası", iconType: "seo" },
+      { id: 2, title: "Kontent Hüququ", description: "Sizə aid olan məzmunun platformalarda qorunması", iconType: "content" },
+      { id: 3, title: "Profilinizin Təsdiqlənməsi", description: "Sosial platformalarda rəsmi hesabların təsdiqlənməsi", iconType: "verify" },
+      { id: 4, title: "Texniki Dəstək", description: "YouTube kanalınıza mütəxəssislərimiz tərəfindən 7/24 dəstək", iconType: "support" },
+      { id: 5, title: "Reklam / Tanıtım", description: "Məzmunlarınızın daha böyük kütləyə çatdırılmasını təmin edirik", iconType: "ads" },
+      { id: 6, title: "Rəqəmsal Platformalar", description: "Musiqilərinizin digər dijital platformalarda yayımlanması", iconType: "digital" },
     ]
   },
-  gallery: {
-    heading: "VISUAL",
-    headingAccent: "DIARY",
-    images: [
-      "https://picsum.photos/seed/gig1/800/600",
-      "https://picsum.photos/seed/gig2/600/800",
-      "https://picsum.photos/seed/gig3/800/800",
-      "https://picsum.photos/seed/gig4/800/600",
-      "https://picsum.photos/seed/gig5/600/800",
-      "https://picsum.photos/seed/gig6/800/800",
+  partners: {
+    heading: "Partnyorlar",
+    items: [
+      { id: 1, name: "AZTV", image: "https://yt3.googleusercontent.com/ytc/AIdro_k6k5W5m_v_R_x5_x_x_x_x=s176-c-k-c0x00ffffff-no-rj", stats: "32M • 455K • 52.6K" },
+      { id: 2, name: "Mədəniyyət TV", image: "https://yt3.googleusercontent.com/ytc/AIdro_k6k5W5m_v_R_x5_x_x_x_x=s176-c-k-c0x00ffffff-no-rj", stats: "8.4M • 96.2K • 14.9K" },
+      { id: 3, name: "İdman TV", image: "https://yt3.googleusercontent.com/ytc/AIdro_k6k5W5m_v_R_x5_x_x_x_x=s176-c-k-c0x00ffffff-no-rj", stats: "28.5M • 74.2K • 3.8K" },
+      { id: 4, name: "Üzeyir Mehdizadə", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop", stats: "1.2B • 2.3M • 227" },
+      { id: 5, name: "Talıb Tale", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop", stats: "941M • 1.4M • 138" },
+      { id: 6, name: "Çinarə Məlikzadə", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop", stats: "170M • 496K • 84" },
+    ],
+    brandLogos: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/1024px-YouTube_Logo_2017.svg.png",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png",
+      "https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Believe_Music_Logo.svg/1200px-Believe_Music_Logo.svg.png" 
+    ]
+  },
+  blog: {
+    heading: "Bloq",
+    subtitle: "Hər kəs üçün faydalı bloq yazılarımız",
+    posts: [
+      { id: 1, title: "Yenilənmiş Təqlid Siyasəti", date: "2023-09-28 16:27:55", image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop", views: "0 dəfə oxunub" },
+      { id: 2, title: "Digər müəlliflərin məzmunu ilə Shorts", date: "2023-09-28 16:14:12", image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?q=80&w=1000&auto=format&fit=crop", views: "0 dəfə oxunub" },
+      { id: 3, title: "Tezliklə mobil cihazlarda Creative Studio", date: "2022-09-10 00:53:47", image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1000&auto=format&fit=crop", views: "0 dəfə oxunub" }
     ]
   },
   contact: {
-    heading: "GET IN",
-    headingAccent: "TOUCH",
-    text: "For booking inquiries, press features, or collaborations, please use the form or contact management directly."
+    heading: "Bizimlə əlaqə",
+    directorName: "Nadir Kərimov",
+    directorTitle: "Direktor",
+    directorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop",
+    mapImage: "https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop"
   }
 };
 
 interface CMSContextType {
   data: SiteData;
   updateData: (newData: SiteData) => void;
-  updateSection: <K extends keyof SiteData>(section: K, value: SiteData[K]) => void;
 }
 
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
@@ -70,13 +88,11 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [data, setData] = useState<SiteData>(defaultData);
 
   useEffect(() => {
-    // Try to load data from the embedded script tag on mount
     const scriptTag = document.getElementById('site-data');
     if (scriptTag && scriptTag.textContent) {
       try {
         const savedData = JSON.parse(scriptTag.textContent);
         if (savedData && typeof savedData === 'object') {
-            // Merge with default data to ensure new fields don't break old saves
             setData(prev => ({ ...prev, ...savedData }));
         }
       } catch (e) {
@@ -89,15 +105,8 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setData(newData);
   };
 
-  const updateSection = <K extends keyof SiteData>(section: K, value: SiteData[K]) => {
-    setData(prev => ({
-      ...prev,
-      [section]: value
-    }));
-  };
-
   return (
-    <CMSContext.Provider value={{ data, updateData, updateSection }}>
+    <CMSContext.Provider value={{ data, updateData }}>
       {children}
     </CMSContext.Provider>
   );
